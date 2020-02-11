@@ -5,8 +5,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ListFragment.OnAgeSelectedInterface{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,5 +19,10 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.placeHolder, fragment);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onListAgeSelected(int index) {
+        Toast.makeText(this, Milestones.headers[index], Toast.LENGTH_SHORT).show();
     }
 }

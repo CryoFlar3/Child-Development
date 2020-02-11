@@ -10,6 +10,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ListAdapter extends RecyclerView.Adapter{
+    private final ListFragment.OnAgeSelectedInterface listener;
+
+    public ListAdapter(ListFragment.OnAgeSelectedInterface listener) {
+        this.listener = listener;
+    }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -31,6 +37,7 @@ public class ListAdapter extends RecyclerView.Adapter{
 
         private TextView textView;
         private ImageView imageView;
+        private int index;
 
         public ListViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -40,13 +47,14 @@ public class ListAdapter extends RecyclerView.Adapter{
         }
 
         public void bindView(int position){
+            index = position;
             textView.setText(Milestones.headers[position]);
             imageView.setImageResource(Milestones.resourceIds[position]);
         }
 
         @Override
         public void onClick(View v) {
-
+            listener.onListAgeSelected(index);
         }
     }
 }
