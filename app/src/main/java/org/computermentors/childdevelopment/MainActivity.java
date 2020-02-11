@@ -27,5 +27,11 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnAg
     @Override
     public void onListAgeSelected(int index) {
         Toast.makeText(this, Milestones.headers[index], Toast.LENGTH_SHORT).show();
+
+        ViewPagerFragment fragment = new ViewPagerFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.placeHolder, fragment);
+        fragmentTransaction.commit();
     }
 }
