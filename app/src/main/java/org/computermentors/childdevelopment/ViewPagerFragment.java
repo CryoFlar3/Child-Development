@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.tabs.TabLayout;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -34,11 +36,20 @@ public class ViewPagerFragment extends Fragment {
                 return position == 0 ? positiveFragment : cautionFragment;
             }
 
+            @Nullable
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return  position == 0 ? "Good Signs" : "Caution";
+            }
+
             @Override
             public int getCount() {
                 return 2;
             }
         });
+
+        TabLayout tabLayout = view.findViewById(R.id.tabLayout);
+        tabLayout.setupWithViewPager(viewPager);
 
         return view;
     }

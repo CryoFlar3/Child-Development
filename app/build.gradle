@@ -29,5 +29,6 @@ dependencies {
     def recyclerview_version = "1.1.0"
 
     implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
+    implementation "com.android.support:design:29.0.2"
 
 }
