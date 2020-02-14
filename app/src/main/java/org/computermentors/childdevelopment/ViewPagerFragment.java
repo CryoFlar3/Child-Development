@@ -25,6 +25,9 @@ public class ViewPagerFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_viewpager, container, false);
 
         final PositiveFragment positiveFragment = new PositiveFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(KEY_AGE_INDEX, index);
+        positiveFragment.setArguments(bundle);
         final CautionFragment cautionFragment = new CautionFragment();
 
 

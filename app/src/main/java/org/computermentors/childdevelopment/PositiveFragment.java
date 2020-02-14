@@ -13,6 +13,7 @@ public class PositiveFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        int index = getArguments().getInt(ViewPagerFragment.KEY_AGE_INDEX);
         View view = inflater.inflate(R.layout.fragment_positive, container, false);
         return view;
     }
