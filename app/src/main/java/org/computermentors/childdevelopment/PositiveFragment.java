@@ -12,6 +12,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 public class PositiveFragment extends Fragment {
+    private static final String KEY_CHECKED_BOXES = "key_checked_boxes";
+    private CheckBox[] checkBoxes;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -20,18 +23,40 @@ public class PositiveFragment extends Fragment {
 
         LinearLayout linearLayout = view.findViewById(R.id.positiveLayout);
         String[] positives = Milestones.positives[index].split("`");
-        setUpCheckBoxes(positives, linearLayout);
+        checkBoxes = new CheckBox[positives.length];
+        boolean[] checkedBoxes = new boolean[checkBoxes.length];
+        if (savedInstanceState != null && savedInstanceState.getBooleanArray(KEY_CHECKED_BOXES) != null){
+            checkedBoxes = savedInstanceState.getBooleanArray(KEY_CHECKED_BOXES);
+        }
+        setUpCheckBoxes(positives, linearLayout, checkedBoxes);
 
         return view;
     }
 
-    private void setUpCheckBoxes(String[] positives, ViewGroup container){
+    private void setUpCheckBoxes(String[] positives, ViewGroup container, boolean[] checkedBoxes){
+        int i = 0;
         for (String positive : positives){
-            CheckBox checkBox = new CheckBox(getActivity());
-            checkBox.setPadding(8,16,8,16);
-            checkBox.setTextSize(20f);
-            checkBox.setText(positive);
-            container.addView(checkBox);
+            checkBoxes[i] = new CheckBox(getActivity());
+            checkBoxes[i].setPadding(8,16,8,16);
+            checkBoxes[i].setTextSize(20f);
+            checkBoxes[i].setText(positive);
+            container.addView(checkBoxes[i]);
+            if (checkedBoxes[i]){
+                checkBoxes[i].toggle();
+            }
+            i++;
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        boolean[] stateOfCheckBoxes = new boolean[checkBoxes.length];
+        int i = 0;
+        for(CheckBox checkBox : checkBoxes){
+            stateOfCheckBoxes[i] = checkBox.isChecked();
+            i++;
+        }
+        outState.putBooleanArray(KEY_CHECKED_BOXES, stateOfCheckBoxes);
+        super.onSaveInstanceState(outState);
     }
 }
