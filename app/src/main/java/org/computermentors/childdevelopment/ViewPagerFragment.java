@@ -29,7 +29,9 @@ public class ViewPagerFragment extends Fragment {
         bundle.putInt(KEY_AGE_INDEX, index);
         positiveFragment.setArguments(bundle);
         final CautionFragment cautionFragment = new CautionFragment();
-
+        bundle = new Bundle();
+        bundle.putInt(KEY_AGE_INDEX, index);
+        cautionFragment.setArguments(bundle);
 
         ViewPager viewPager = view.findViewById(R.id.viewPager);
         viewPager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
