@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class PositiveFragment extends Fragment {
+public class CheckBoxesFragment extends Fragment {
     private static final String KEY_CHECKED_BOXES = "key_checked_boxes";
     private CheckBox[] checkBoxes;
 
@@ -19,27 +19,33 @@ public class PositiveFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         int index = getArguments().getInt(ViewPagerFragment.KEY_AGE_INDEX);
-        View view = inflater.inflate(R.layout.fragment_positive, container, false);
+        boolean isPositive = getArguments().getBoolean(ViewPagerFragment.KEY_IS_POSITIVES);
+        View view = inflater.inflate(R.layout.fragment_checkboxes, container, false);
 
-        LinearLayout linearLayout = view.findViewById(R.id.positiveLayout);
-        String[] positives = Milestones.positives[index].split("`");
-        checkBoxes = new CheckBox[positives.length];
+        LinearLayout linearLayout = view.findViewById(R.id.checkBoxesLayout);
+        String[] contents;
+        if (isPositive){
+            contents = Milestones.positives[index].split("`");
+        } else {
+            contents = Milestones.concerns[index].split("`");
+        }
+        checkBoxes = new CheckBox[contents.length];
         boolean[] checkedBoxes = new boolean[checkBoxes.length];
         if (savedInstanceState != null && savedInstanceState.getBooleanArray(KEY_CHECKED_BOXES) != null){
             checkedBoxes = savedInstanceState.getBooleanArray(KEY_CHECKED_BOXES);
         }
-        setUpCheckBoxes(positives, linearLayout, checkedBoxes);
+        setUpCheckBoxes(contents, linearLayout, checkedBoxes);
 
         return view;
     }
 
-    private void setUpCheckBoxes(String[] positives, ViewGroup container, boolean[] checkedBoxes){
+    private void setUpCheckBoxes(String[] contents, ViewGroup container, boolean[] checkedBoxes){
         int i = 0;
-        for (String positive : positives){
+        for (String content : contents){
             checkBoxes[i] = new CheckBox(getActivity());
             checkBoxes[i].setPadding(8,16,8,16);
             checkBoxes[i].setTextSize(20f);
-            checkBoxes[i].setText(positive);
+            checkBoxes[i].setText(content);
             container.addView(checkBoxes[i]);
             if (checkedBoxes[i]){
                 checkBoxes[i].toggle();

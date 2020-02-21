@@ -16,6 +16,7 @@ import androidx.viewpager.widget.ViewPager;
 public class ViewPagerFragment extends Fragment {
 
     public static final String KEY_AGE_INDEX = "age_index";
+    public static final String KEY_IS_POSITIVES = "key_is_positives";
 
     @Nullable
     @Override
@@ -24,13 +25,15 @@ public class ViewPagerFragment extends Fragment {
         getActivity().setTitle(Milestones.headers[index]);
         View view = inflater.inflate(R.layout.fragment_viewpager, container, false);
 
-        final PositiveFragment positiveFragment = new PositiveFragment();
+        final CheckBoxesFragment positiveFragment = new CheckBoxesFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(KEY_AGE_INDEX, index);
+        bundle.putBoolean(KEY_IS_POSITIVES, true);
         positiveFragment.setArguments(bundle);
-        final CautionFragment cautionFragment = new CautionFragment();
+        final CheckBoxesFragment cautionFragment = new CheckBoxesFragment();
         bundle = new Bundle();
         bundle.putInt(KEY_AGE_INDEX, index);
+        bundle.putBoolean(KEY_IS_POSITIVES, false);
         cautionFragment.setArguments(bundle);
 
         ViewPager viewPager = view.findViewById(R.id.viewPager);
