@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-public class MainActivity extends AppCompatActivity implements ListFragment.OnAgeSelectedInterface{
+public class MainActivity extends AppCompatActivity implements ListFragment.OnAgeSelectedInterface, GridFragment.OnAgeSelectedInterface{
 
     public static final String LIST_FRAGMENT = "list_fragment";
     public static final String VIEWPAGER_FRAGMENT = "viewpager_fragment";
@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnAg
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.add(R.id.placeHolder, fragment, LIST_FRAGMENT);
                 fragmentTransaction.commit();
+            }
         }
 
 
@@ -49,5 +50,10 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnAg
         fragmentTransaction.replace(R.id.placeHolder, fragment, VIEWPAGER_FRAGMENT);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onGridAgeSelected(int index) {
+
     }
 }
