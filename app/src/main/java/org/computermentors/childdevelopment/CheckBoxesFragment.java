@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class CheckBoxesFragment extends Fragment {
+public abstract class CheckBoxesFragment extends Fragment {
     private static final String KEY_CHECKED_BOXES = "key_checked_boxes";
     private CheckBox[] checkBoxes;
 
@@ -19,16 +19,10 @@ public class CheckBoxesFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         int index = getArguments().getInt(ViewPagerFragment.KEY_AGE_INDEX);
-        boolean isPositive = getArguments().getBoolean(ViewPagerFragment.KEY_IS_POSITIVES);
         View view = inflater.inflate(R.layout.fragment_checkboxes, container, false);
 
         LinearLayout linearLayout = view.findViewById(R.id.checkBoxesLayout);
-        String[] contents;
-        if (isPositive){
-            contents = Milestones.positives[index].split("`");
-        } else {
-            contents = Milestones.concerns[index].split("`");
-        }
+        String[] contents = getContents(index);
         checkBoxes = new CheckBox[contents.length];
         boolean[] checkedBoxes = new boolean[checkBoxes.length];
         if (savedInstanceState != null && savedInstanceState.getBooleanArray(KEY_CHECKED_BOXES) != null){
@@ -38,6 +32,8 @@ public class CheckBoxesFragment extends Fragment {
 
         return view;
     }
+
+    public abstract String[] getContents(int index);
 
     private void setUpCheckBoxes(String[] contents, ViewGroup container, boolean[] checkedBoxes){
         int i = 0;
